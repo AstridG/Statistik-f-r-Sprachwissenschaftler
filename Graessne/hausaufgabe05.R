@@ -1,4 +1,4 @@
-# Hausaufgabe 04
+# Hausaufgabe 05
 # Astrid Graessner <Graessne@students.uni-marburg.de>
 # 2014-05-02
 # Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
@@ -94,6 +94,8 @@ print(frauen.studiengang.bw)
 # sein, weil die Gruppen *unbalanziert* sind, d.h. die Gruppen sind
 # unterschiedlich groß. Aber wie sieht der Vergleich auf den ersten Blick aus?
 # (Keine explizite Antwort nötig, nur eine Überlegung.)
+# Die Mediane der Gruppen sehen ziemlich ähnlich aus. Im Studiengang Klinische Linguistik
+# gibt es eine größere Streuung.
 
 # Wir können natürlich auch die Dichte anschauen:
 frauen.studiengang.dichte <- height.grafik.basis.frauen + geom_density(aes(color=major,fill=major),alpha=0.5)
@@ -101,9 +103,14 @@ print(frauen.studiengang.dichte)
 
 # Haben Sie den gleichen Eindruck wie bei Box-Whisker bekommen? Unterscheiden
 # sich die Gruppen?
+# Bei der Dichte der Gruppen fallen die Unterschiede mehr auf als beim Boxplot. Die Studiengänge
+# Speech Science und Klinische Linguistik haben die höchste Dichte bei ca 1,68cm, allerdings sieht die Kurve
+#für K.L. eher normalverteilt aus, was wahrscheinlich an der größeren Stichprobe für K.L. liegt. Kognition
+# und Kommunikation hat die höchste Dichte bei ca. 1,66 und 1,72.
 # (Keine explizite Antwort nötig, nur eine Überlegung.)
 
 # Welche Gruppe hat gefehlt? Wie viele Datenpunkte gab es für die Gruppe?
+# Die Gruppen other und Germanisitische Linguistik fehlen da es nur 2 bzw. 1 Datenpunkte jeweils gibt.
 # (Keine explizite Antwort nötig, nur eine Überlegung.)
 
 # Wir können auch die verschiedenen Maße der Streuung berechnen.
@@ -142,7 +149,7 @@ klinisch.height.var <- mean((klinisch.height-(klinisch.height.mean))^2)
 klinisch.height.sd <- sqrt(klinisch.height.var)
 print(klinisch.height.sd)
 
-# Oder ohne Varianz als Zwischenschritt
+# Oder ohne Varianzberechnung als Zwischenschritt
 linkk.height <- frauen[frauen$major == "M.A..Linguistik.Kognition.und.Kommunikation","height"]
 linkk.height.mean <- mean(linkk.height)
 linkk.height.sd <- sqrt(mean((linkk.height-(linkk.height.mean))^2))
