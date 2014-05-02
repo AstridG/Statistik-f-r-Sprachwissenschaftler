@@ -127,18 +127,35 @@ print(klinisch)
 # Jetzt brauchen wir die Teilmenge für die anderen beiden Studiengänge, 
 # Linguistik Kognition und Kommunikation und Speech Science
 # HINT: wie sehen die Namen aus bzw. wie werden sie im data frame buchstabiert?
-#linkk <- frauen[CODE_HIER]
-#speech <- frauen[CODE_HIER] 
+linkk <- frauen[frauen$major == "M.A..Linguistik.Kognition.und.Kommunikation",]
+speech <- frauen[frauen$major == "M.A..Speech.Science",] 
+print(linkk)
+print(speech)
 
 # Berechnen Sie -- ohne Hilfe von sd() -- die Standardabweichung für die Größe der drei 
 # Gruppen. Sie können auch weitere Zeilen hinzufügen, wenn es Ihnen so leichter
 # ist. 
 # HINT: Formel und Beispiel für die Berechnung auf den Folien!
-#klinisch.sd <- CODE_HIER
-#linkk.sd <- CODE_HIER
-#speech.sd <- CODE_HIER
+klinisch.height <-frauen[frauen$major == "M.A..Klinische.Linguistik","height"]
+klinisch.height.mean <- mean(klinisch.height)
+klinisch.height.var <- mean((klinisch.height-(klinisch.height.mean))^2)
+klinisch.height.sd <- sqrt(klinisch.height.var)
+print(klinisch.height.sd)
+
+# Oder ohne Varianz als Zwischenschritt
+linkk.height <- frauen[frauen$major == "M.A..Linguistik.Kognition.und.Kommunikation","height"]
+linkk.height.mean <- mean(linkk.height)
+linkk.height.sd <- sqrt(mean((linkk.height-(linkk.height.mean))^2))
+print(linkk.height.sd)
+
+speech.height <- frauen[frauen$major == "M.A..Speech.Science","height"]
+speech.height.mean <- mean(speech.height)
+speech.height.sd <- sqrt(mean((speech.height-(speech.height.mean))^2))
+print(speech.height.sd)
+
 
 # Berichten Sie jetzt die Mittelwerte und Standardabweichungen für die drei Gruppen. Die erste Gruppe steht hier als Muster:
-#print( paste("Studiengang: Klinische Linguistik","Mean:",mean(klinisch$height),"SD:",klinisch.sd) )
-#CODE_HIER
+print( paste("Studiengang: Klinische Linguistik","Mean:",mean(klinisch$height),"SD:",klinisch.height.sd) )
+print( paste("Studiengang: Linguistik Kognition und Kommunikation","Mean:",linkk.height.mean,"SD:",linkk.height.sd) )
+print( paste("Studiengang: Speech Science","Mean:",speech.height.mean,"SD:",speech.height.sd) )
 
