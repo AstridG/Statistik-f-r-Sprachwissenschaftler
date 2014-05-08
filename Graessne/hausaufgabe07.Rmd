@@ -107,7 +107,7 @@ Schiefe (*skewness*) beschriebt die (A)Symmetrie einer Verteilung. Eine Verteilu
 
 Die Verteilung von Noten ist oft schief mit mehr guten Noten. Ist die Verteilung rechts- oder linksschief?
 
-antwort_hier
+linksschief
 
 Vielleicht hilft folgende Grafik mit der Visualisierung:
 
@@ -125,8 +125,9 @@ noten.dist
 ```
 
 Jetzt können wir die absoluten Häufigkeiten auch plotten:
-
-code_block_hier
+```{r}
+ggplot(data=noten.dist,aes(x=Notenpunkte,y=Anzahl,color=Standardabweichung)) + geom_line() + scale_x_continuous(limits=c(0,16))
+```
 
 Beantworten Sie ein paar Fragen über die Verteilung, indem Sie den passenden R-Code einsetzen:
 
