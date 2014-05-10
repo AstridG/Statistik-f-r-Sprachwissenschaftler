@@ -97,7 +97,7 @@ Wie steht die Anzahl guter Noten in Beziehung zur Anzahl schlechter Noten?
 Es gibt mehr schlechte als gute Noten
 Warum?
 
-Schlechte Noten wurden als alle unter 5 Notenpunkte definiert. Also 4,3,2,1 Punkte. Gute Noten wurden als alle ab 13 Notenpunkte definiert, also 13,14,15.(oder vielleicht sogar nur 14 und 15?) Unser Bereich der schlechten Noten ist als größer als der der Guten und somit fallen da auch mehr Prozent rein.
+Schlechte Noten wurden als alle unter 5 Notenpunkte definiert. Also 4,3,2,1 Punkte. Gute Noten wurden als alle ab 13 Notenpunkte definiert, also 13,14, 15 Punkte. Unser Bereich der schlechten Noten ist als größer als der der Guten und somit fallen da auch mehr Prozent rein.
 
 
 ## Kurtosis und Schiefe
@@ -107,7 +107,7 @@ Schiefe (*skewness*) beschriebt die (A)Symmetrie einer Verteilung. Eine Verteilu
 
 Die Verteilung von Noten ist oft schief mit mehr guten Noten. Ist die Verteilung rechts- oder linksschief?
 
-linksschief
+Sie ist linksschief.
 
 Vielleicht hilft folgende Grafik mit der Visualisierung:
 
@@ -166,18 +166,17 @@ Um in dem besten 1% abzuschließen, muss man zumindest `r qnorm(0.99,mean=mu,sd=
 Bei der Überprüfung der Lehrqualität scheint es der Verwaltung, dass ein gewisser Dozent andere Noten als andere Dozenten vergibt. Es wird entschieden, dass der Notenspiegel bei den Teilnehmern in einem von seinen Kursen getestet wird, um zu schauen, ob er sich von signifikant von der idealisierten Notenverteilung ($\mu=8,\sigma=3$) unterscheidet. Um zu zeigen, dass Gott $\alpha=0.06$ so viel liebt wie $\alpha=0.05$ `r citep("10.1037/0003-066X.44.10.1276")`, setzt die Verwaltung das Signikanzniveau auf 0.06. 
 
 Der kritische Wert für einen einseitigen $z$-Test ist 
+`r qnorm(0.94)`
 
-```{r}
-qnorm(0.94)
-```
 
 Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$
-```{r}
-qnorm(0.97)
-```
+`r qnorm(0.97)`
+
 
 ### Gibt es einen Unterschied?
-Bei diesem Dozenten ist die Verwaltung wirklich unsicher, ob und was für einen Unterschied es geben könnte. (Welche Testart sollte man hier nutzen?) zweiseitig
+Bei diesem Dozenten ist die Verwaltung wirklich unsicher, ob und was für einen Unterschied es geben könnte. (Welche Testart sollte man hier nutzen?)
+
+Einen zweiseitigen Test
 
 In einem kleinen Seminar mit 7 Studenten beträgt der Durchschnittswert 10. Unterscheidet sich der Notenspiegel von dem idealen? Berechnen Sie den $z$-Test:
 
