@@ -50,14 +50,14 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # (http://osdoc.cogsci.nl/) auch zu Hause ausführen!)
 
 # Wir schauen uns erst mal eine Zusammenfassung der Daten an:
-# print(summary(rt))
+print(summary(rt))
 
 # Wir sehen sofort, dass R die Variabel "subj" als numerische Variable
 # behandelt hat, obwohl sie eigentlich kategorisch ist. Das müssen wir ändern:
-# rt$subj <- as.factor(rt$subj)
-# 
-# rt.plot <- qplot(x=RT,color=subj,fill=subj,data=rt, geom="density",alpha=I(0.3))
-# print(rt.plot)
+rt$subj <- as.factor(rt$subj)
+ 
+rt.plot <- qplot(x=RT,color=subj,fill=subj,data=rt, geom="density",alpha=I(0.3))
+print(rt.plot)
 
 # Haben die Daten der beiden Gruppen -- die wiederholten Messwerte der einzelnen
 # Probanden bilden ja Gruppen -- homogene Varianz? Bevor Sie irgendwelche Tests 
@@ -69,7 +69,14 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # Sie von vorneherein etwas behaupten haben.
 
 # Berechnen Sie jetzt den F-Test:
-#print(CODE_HIER)
+# Erstmal die beiden Gruppen extrahieren 
+gruppe1<- subset(rt, rt$subj=="1")
+print(gruppe1)
+
+gruppe2<- subset(rt, rt$subj=="2")
+print(gruppe2)
+
+var.test(gruppe1$RT,gruppe2$RT)
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
 # F-Test "Varianzen Ungleich" ist.
