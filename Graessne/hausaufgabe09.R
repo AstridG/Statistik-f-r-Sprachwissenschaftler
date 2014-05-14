@@ -82,7 +82,10 @@ var.test(gruppe1$RT,gruppe2$RT)
 # F-Test "Varianzen Ungleich" ist.
 
 # Berechenen Sie den Levene Test:
-#print(CODE_HIER)
+RT_Gruppen <- rt[rt$subj == "1" | rt$subj == "2", c("subj","RT")]
+print(RT_Gruppen)
+
+leveneTest(RT_Gruppen$RT ~ RT_Gruppen$subj)
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
 # Levene Test "Varianzen Gleich" ist.
