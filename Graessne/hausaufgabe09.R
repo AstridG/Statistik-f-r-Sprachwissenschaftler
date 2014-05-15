@@ -154,20 +154,44 @@ print(logrt.plot)
 
 gruppe1_logrt <- rt[rt$subj == "1","logRT"]
 gruppe2_logrt <- rt[rt$subj == "2","logRT"]
-var.test(gruppe1_logrt,gruppe2_logrt)
-
+log_F <- var.test(gruppe1_logrt,gruppe2_logrt)
+print(log_F)
+if (log_F$p.value > 0.05){
+  print("F-Test ist insignifikant, die Varianzen der Gruppen sind gleich.")
+}else{
+  print("F-Test ist signifikant, die Varianzen der Gruppen sind nicht gleich.")
+}
 
 
 logRT_Gruppen <- rt[rt$subj == "1" | rt$subj == "2", c("subj","logRT")]
 print(logRT_Gruppen)
-leveneTest(logRT_Gruppen$logRT ~ logRT_Gruppen$subj)
+log_levene <- leveneTest(logRT_Gruppen$logRT ~ logRT_Gruppen$subj)
+print(log_levene)
+if (log_levene$p.value > 0.05){
+  print("Levene-Test ist insignifikant, die Varianzen der Gruppen sind gleich.")
+}else{
+  print("Levene-Test ist signifikant, die Varianzen der Gruppen sind nicht gleich.")
+}
 
 # Sind die Daten "normaler" gewordern? Berechnen Sie den Shapiro-Test für beide 
 # Gruppen. Nach jeder Gruppe sollten Sie auch programmatisch (=durch if-Blöcke)
 # ausdrücken, ob die Daten normal verteilt sind. 
 # (Für die fortgeschrittenen: hier könnte man auch eine for-Schleife nutzen...)
 
-# CODE_HIER
+for (i in rt$subj=="1"){
+ shapiro_log <- shapiro.test(rt[rt$subj,"logRT"])
+if(shapiro_log$p.value > 0.05){
+ print("Insignifikant. Die Daten sind normal verteilt")
+}else{
+ print("Signifikant. Die Daten sind nicht normal verteilt.")
+}
+}
+
+if (shapiro2$p.value < 0.05){
+  print ("Shapiro's Test ist signifikant, die Daten sind nicht normal verteilt.")
+}else{
+  print("Shapiro's Test ist insignifikant, die Daten sind normal verteilt.")
+}
 
 # Hat die logarithmische Transformation insgesamt geholfen? Berechnen Sie zum
 # Schluss den (Welch) t-Test für die logarithmischen Daten. Bekommen Sie das
