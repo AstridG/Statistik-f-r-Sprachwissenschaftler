@@ -207,8 +207,5 @@ if (shapiro_log2$p.value < 0.05){
 
 gruppe1_logrt <- rt[rt$subj == "1","logRT"]
 gruppe2_logrt <- rt[rt$subj == "2","logRT"]
-two.sample <-t.test(gruppe1_logrt,gruppe2_logrt,var.equal=TRUE)
 welch <- t.test(gruppe1_logrt,gruppe2_logrt)
-
-print(two.sample)
 print(welch)
