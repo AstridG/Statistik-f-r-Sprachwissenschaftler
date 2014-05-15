@@ -178,23 +178,37 @@ if (log_levene$p.value > 0.05){
 # ausdrücken, ob die Daten normal verteilt sind. 
 # (Für die fortgeschrittenen: hier könnte man auch eine for-Schleife nutzen...)
 
-for (i in rt$subj=="1"){
- shapiro_log <- shapiro.test(rt[rt$subj,"logRT"])
-if(shapiro_log$p.value > 0.05){
- print("Insignifikant. Die Daten sind normal verteilt")
-}else{
- print("Signifikant. Die Daten sind nicht normal verteilt.")
-}
-}
-
-if (shapiro2$p.value < 0.05){
+#for (i in rt$subj==1){
+# shapiro_log <- shapiro.test(rt[rt$subj,"logRT"])
+#if(shapiro_log$p.value > 0.05){
+# print("Insignifikant. Die Daten sind normal verteilt")
+#}else{
+# print("Signifikant. Die Daten sind nicht normal verteilt.")
+#}
+#}
+shapiro_log <- shapiro.test(rt[rt$subj==1,"logRT"])
+print(shapiro_log)
+if (shapiro_log$p.value < 0.05){
   print ("Shapiro's Test ist signifikant, die Daten sind nicht normal verteilt.")
 }else{
   print("Shapiro's Test ist insignifikant, die Daten sind normal verteilt.")
 }
 
+shapiro_log2 <- shapiro.test(rt[rt$subj==2,"logRT"])
+print(shapiro_log2)
+if (shapiro_log2$p.value < 0.05){
+  print ("Shapiro's Test ist signifikant, die Daten sind nicht normal verteilt.")
+}else{
+  print("Shapiro's Test ist insignifikant, die Daten sind normal verteilt.")
+}
 # Hat die logarithmische Transformation insgesamt geholfen? Berechnen Sie zum
 # Schluss den (Welch) t-Test für die logarithmischen Daten. Bekommen Sie das
 # gleiche Ergebnisse wie bei den Ausgangsdaten?
 
-# CODE_HIER
+gruppe1_logrt <- rt[rt$subj == "1","logRT"]
+gruppe2_logrt <- rt[rt$subj == "2","logRT"]
+two.sample <-t.test(gruppe1_logrt,gruppe2_logrt,var.equal=TRUE)
+welch <- t.test(gruppe1_logrt,gruppe2_logrt)
+
+print(two.sample)
+print(welch)
