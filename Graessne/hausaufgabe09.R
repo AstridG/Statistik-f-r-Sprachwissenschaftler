@@ -69,6 +69,7 @@ print(rt.plot)
 # Sie von vorneherein etwas behaupten haben.
 
 # Berechnen Sie jetzt den F-Test:
+
 # Erstmal die beiden Gruppen extrahieren 
 gruppe1<- subset(rt, rt$subj=="1")
 print(gruppe1)
@@ -79,7 +80,10 @@ print(gruppe2)
 var.test(gruppe1$RT,gruppe2$RT)
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
-# F-Test "Varianzen Ungleich" ist.
+# F-Test "Varianzen Ungleich" ist. 
+
+# Wenn Nullhypothese = Varianzen ungleich, dann wird die Nullhypothese
+# hier abgelehnt und die Daten sind homogen
 
 # Berechenen Sie den Levene Test:
 RT_Gruppen <- rt[rt$subj == "1" | rt$subj == "2", c("subj","RT")]
@@ -89,6 +93,8 @@ leveneTest(RT_Gruppen$RT ~ RT_Gruppen$subj)
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
 # Levene Test "Varianzen Gleich" ist.
+
+# Auch nach dieser Berechnung sind die Varianzen homogen
 
 # Für heterogene Varianzen haben wir eine Variante des  t-Tests gesehen, die
 # eine Korrektur der Freiheitsgerade macht. Bei homogener Varianz sollten beide
@@ -105,6 +111,8 @@ welch <- t.test(gruppe1_rt,gruppe2_rt)
 
 print(two.sample)
 print(welch)
+
+# Die Ergebnisse sind ziemlich ähnlich, da die Varianzen homogen sind.
 
 # Das Ergebnis der verschiedenen Test-Funktionen in R ist übrigens eine Liste.
 # Wir können das ausnutzen, um zu schauen, ob es einen Unterschied zwischen den
@@ -157,17 +165,18 @@ gruppe2_logrt <- rt[rt$subj == "2","logRT"]
 log_F <- var.test(gruppe1_logrt,gruppe2_logrt)
 print(log_F)
 if (log_F$p.value > 0.05){
-  print("F-Test ist insignifikant, die Varianzen der Gruppen sind gleich.")
+  print("Der F-Test ist insignifikant, die Varianzen der Gruppen sind ungleich.")
 }else{
-  print("F-Test ist signifikant, die Varianzen der Gruppen sind nicht gleich.")
+  print("Der F-Test ist signifikant, die Varianzen der Gruppen sind gleich.")
 }
 
 
 logRT_Gruppen <- rt[rt$subj == "1" | rt$subj == "2", c("subj","logRT")]
 print(logRT_Gruppen)
+
 log_levene <- leveneTest(logRT_Gruppen$logRT ~ logRT_Gruppen$subj)
 print(log_levene)
-if (log_levene$p.value > 0.05){
+if (log_levene$Pr > 0.05){
   print("Levene-Test ist insignifikant, die Varianzen der Gruppen sind gleich.")
 }else{
   print("Levene-Test ist signifikant, die Varianzen der Gruppen sind nicht gleich.")
@@ -201,7 +210,12 @@ if (shapiro_log2$p.value < 0.05){
 }else{
   print("Shapiro's Test ist insignifikant, die Daten sind normal verteilt.")
 }
-# Hat die logarithmische Transformation insgesamt geholfen? Berechnen Sie zum
+# Hat die logarithmische Transformation insgesamt geholfen?
+# Die Logarithmische Transformation hat das Gegenteil bewirkt.
+# Subject 1 ist nun nicht mehr normalverteilt, Subject 2 immernoch nicht
+# aber ein bisschen näher dran.
+
+#Berechnen Sie zum
 # Schluss den (Welch) t-Test für die logarithmischen Daten. Bekommen Sie das
 # gleiche Ergebnisse wie bei den Ausgangsdaten?
 
@@ -209,3 +223,5 @@ gruppe1_logrt <- rt[rt$subj == "1","logRT"]
 gruppe2_logrt <- rt[rt$subj == "2","logRT"]
 welch <- t.test(gruppe1_logrt,gruppe2_logrt)
 print(welch)
+
+# Das Ergebnis ist ein bisschen weniger signifikant als vorher
