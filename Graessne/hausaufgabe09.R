@@ -176,7 +176,7 @@ print(logRT_Gruppen)
 
 log_levene <- leveneTest(logRT_Gruppen$logRT ~ logRT_Gruppen$subj)
 print(log_levene)
-if (log_levene$Pr > 0.05){
+if (log_levene$`Pr(>F)`[1] > 0.05){
   print("Levene-Test ist insignifikant, die Varianzen der Gruppen sind gleich.")
 }else{
   print("Levene-Test ist signifikant, die Varianzen der Gruppen sind nicht gleich.")
