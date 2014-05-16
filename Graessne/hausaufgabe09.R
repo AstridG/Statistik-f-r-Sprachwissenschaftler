@@ -77,24 +77,26 @@ print(gruppe1)
 gruppe2<- subset(rt, rt$subj=="2")
 print(gruppe2)
 
-var.test(gruppe1$RT,gruppe2$RT)
+F <- var.test(gruppe1$RT,gruppe2$RT)
+print (F)
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
-# F-Test "Varianzen Ungleich" ist. 
+# F-Test "Varianzen gleich" ist. 
 
-# Wenn Nullhypothese = Varianzen ungleich, dann wird die Nullhypothese
-# hier abgelehnt und die Daten sind homogen
+# Die Varianzen sind nicht gleich, die Nullhypothese muss abgelehnt werden
 
 # Berechenen Sie den Levene Test:
 RT_Gruppen <- rt[rt$subj == "1" | rt$subj == "2", c("subj","RT")]
 print(RT_Gruppen)
 
-leveneTest(RT_Gruppen$RT ~ RT_Gruppen$subj)
+Levene <- leveneTest(RT_Gruppen$RT ~ RT_Gruppen$subj)
+print(Levene)
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
 # Levene Test "Varianzen Gleich" ist.
 
-# Auch nach dieser Berechnung sind die Varianzen homogen
+# Nach dieser Berechnung sind die Varianzen homogen, die Nullhypothese kann 
+# beibehalten werden
 
 # Für heterogene Varianzen haben wir eine Variante des  t-Tests gesehen, die
 # eine Korrektur der Freiheitsgerade macht. Bei homogener Varianz sollten beide
@@ -112,7 +114,7 @@ welch <- t.test(gruppe1_rt,gruppe2_rt)
 print(two.sample)
 print(welch)
 
-# Die Ergebnisse sind ziemlich ähnlich, da die Varianzen homogen sind.
+# Die Ergebnisse sind ziemlich ähnlich.
 
 # Das Ergebnis der verschiedenen Test-Funktionen in R ist übrigens eine Liste.
 # Wir können das ausnutzen, um zu schauen, ob es einen Unterschied zwischen den
@@ -165,9 +167,9 @@ gruppe2_logrt <- rt[rt$subj == "2","logRT"]
 log_F <- var.test(gruppe1_logrt,gruppe2_logrt)
 print(log_F)
 if (log_F$p.value > 0.05){
-  print("Der F-Test ist insignifikant, die Varianzen der Gruppen sind ungleich.")
+  print("Der F-Test ist insignifikant, die Varianzen der Gruppen sind gleich.")
 }else{
-  print("Der F-Test ist signifikant, die Varianzen der Gruppen sind gleich.")
+  print("Der F-Test ist signifikant, die Varianzen der Gruppen sind ungleich.")
 }
 
 
@@ -221,7 +223,7 @@ if (shapiro_log2$p.value < 0.05){
 
 gruppe1_logrt <- rt[rt$subj == "1","logRT"]
 gruppe2_logrt <- rt[rt$subj == "2","logRT"]
-welch <- t.test(gruppe1_logrt,gruppe2_logrt)
-print(welch)
+welch_log <- t.test(gruppe1_logrt,gruppe2_logrt)
+print(welch_log)
 
 # Das Ergebnis ist ein bisschen weniger signifikant als vorher
