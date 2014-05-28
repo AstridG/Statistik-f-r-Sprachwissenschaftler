@@ -16,6 +16,7 @@ library(ggpplot2)
 
 # und danach die Daten:
 # Laden Sie die Daten
-dat <- CODE_HIER ##
+read.table("Data//body_dim_long.tab",header=TRUE)
+
 
 # 
