@@ -90,6 +90,8 @@ print(xtable(priming.by.subject.wide2),type="html",include.rownames=FALSE)
 
 Welches Format macht am meisten Sinn?
 
+Versuchsperonen als Spalten sieht für mich übersichtlicher aus.
+
 Natürlich müssen wir auch die Daten grafisch darstellen:
 ```{r}
 ggplot(data=priming.by.subject) + geom_density(aes(x=RT,color=cond,fill=cond),alpha=0.3)
@@ -99,6 +101,8 @@ ggplot(data=priming.by.subject) + geom_boxplot(aes(x=cond,y=RT,color=cond,fill=c
 ```
 
 Sind alle Plots gleich gut?
+
+Ich finde den Jitterplot am schwierigsten zu interpretieren, da nur einzelne Datenpunkte gezeigt werden. Mit dem Boxplot lassen sich die Mediane gut ablesen. Anhand der Dichteverteilung kann man Gemeinsamkeiten der Bedingungen (Raum,wo sich alle Kurven überschneiden) und Unterschiede (Raum wo bspw nur eine Bedingung eine bsonders hohe Dichte hat) erkennen. Außerdem hat man einen Überblick, ob die Kurven normalverteilt sind.
 
 ### By Item
 Bei "Item" berechnen wir die Mittelwerte aller Trials innerhalb eines Items, d.h. wir nehmen den itemweise Mittelwert über Versuchpersonen hinweg. Dafür können wir `aggregate()` nutzen.
@@ -110,7 +114,7 @@ priming.by.item <- aggregate(RT ~ cond * item,data=priming,FUN = mean)
 Wir wollen auch hier die Daten tabellarisch darstellen. Erstellen Sie eine Tabelle in Wide-Format für die Mittelwerte by Item.
 
 ```{r, results='asis'}
-priming.by.item.wide <- dcast(priming.by.item,item ~ cond, value.var="RT")
+priming.by.item.wide <- dcast(priming.by.item,cond ~ item, value.var="RT")
 print(xtable(priming.by.item.wide),type="html",include.rownames=FALSE)
 ```
 
@@ -184,7 +188,10 @@ priming.f2 <- ezANOVA(priming
 
 ### ANOVA
 ```{r, results='asis'}
-print(xtable(priming.f2$ANOVA),type="html",include.rownames=FALSE)
+print(xtable(priming.f1$ANOVA
+             , display=c("s","s","d","d","f","f","f","fg","s","g")
+             , digits=c(0,0,0,0,2,2,2,2,0,2))
+      ,type="html",include.rownames=FALSE)
 ```
 # Interaktionen 
 In der Analyse by Subjects haben wir eine Interaktion zwsichen `prime` und `target`. Solche Interaktionen berichtet man in der Regel nur, wenn sie auch in der Auflösung zu finden ist. Hier heißt das, dass wir die Daten innerhalb der verschiedenen Stufen eines Faktors anschauen und weitere ANOVAs berechnen, um zu schauen, ob der verbleibende Faktor (oder die verbleibenden Faktoren bei mehrfaktoriellen ANOVA) noch signifikant wird. Wenn er in keiner Stufe des anderen Faktors signifikant wird, betrachten wir die Interaktion als nicht bedeutsam.
@@ -245,4 +252,4 @@ print(xtable(priming.f1.deutsch.target$ANOVA
 
 
 # Lizenz
-Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+Dieses Datei dient nur zu Prüfungszwecken
