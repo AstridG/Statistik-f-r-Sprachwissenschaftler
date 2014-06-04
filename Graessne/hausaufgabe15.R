@@ -1,5 +1,5 @@
 # Hausaufgabe 15
-# Phillip Alday <phillip.alday@staff.uni-marburg.de>
+# Astrid Graessner <Graessne@students.uni-marburg.de>
 # 2014-06-04
 # Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
 
