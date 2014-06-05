@@ -75,6 +75,7 @@ print(summary(m3))
 
 # Hat sich der R^2 Wert geändert? Die t-Werte? Die Koeffizienten? Was ist die
 # Beziehung zwischen diesem Modell und m2?
+# R^2 ihat sich nicht verändert. T-Wert für Intercept statt 0.387 nun 17.606
 
 # Wie sieht es aus mit den Daten zum Kursteilnehmern? Plotten Sie und berechnen
 # Sie ein Modell für das Gewicht der Teilnehmer als Funktion von Körpergröße.
@@ -85,5 +86,5 @@ print(summary(m4))
 # Warum funktioniert die Regression besser beim Datensatz "women" als bei den
 # Kursteilnehmerdaten? HINT: Lesen Sie die Hilfe-Beschreibung von women! 
 
-# funktioniert die Regression besser? Die Linie für "body" sieht aus, als
+# funktioniert die Regression für "women" wirklich besser? Die Linie für "body" sieht aus, als
 # würde sie die Daten besser beschreiben, und R^2 ist auch größer
