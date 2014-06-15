@@ -1,5 +1,5 @@
 % Hausaufgabe 16
-% Phillip Alday <phillip.alday@staff.uni-marburg.de>
+% Astrid Graessner <Graessne@students.uni-marburg.de>
 % 2014-06-11
 
 Falls die Umlaute in dieser und anderen Dateien nicht korrekt dargestellt werden, sollten Sie File > Reopen with Encoding > UTF-8 sofort machen (und auf jeden Fall ohne davor zu speichern), damit die Enkodierung korrekt erkannt wird! 
@@ -59,30 +59,46 @@ ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point() + facet_wrap(~c
 erstmal plotten zuerst einzeln dann in einem
 ```{r}
 ggplot(diamonds, aes(x=carat, y=price))+geom_point()
-ggplot(diamonds, aes(x=clarity, y=price))+geom_point()
-ggplot(diamonds, aes(x=carat, y=price, color=clarity))+ geom_point() 
 ```
+es scheint einen Zusammenhang zwischen Karat und Preis zu geben, allerdings steigt er exponentiell an
 
-lineares Modell anschauen
 ```{r}
-lm <- lm(price~carat * clarity,data=diamonds)
-summary(lm)
+ggplot(data=diamonds) + geom_density(aes(x=price,color=clarity,fill=clarity),alpha=0.1)+scale_x_continuous(limits=c(5000,20000))
 ```
-ANOVA für carat und preis und für clarity und preis
+Den Zusammenhang von Klarheit und Preis kann man gut durch einen Densityplot darstellen. Ich habe die X-Achse limitiert, um besser erkennen zu können, welche Klarheitsgrade im oberen Preisbereich liegen.
 ```{r}
-ANOVA0<-aov(price ~carat, data=diamonds)
-ANOVA1<-aov(price~ clarity, data = diamonds)
-summary(ANOVA0)
-summary(ANOVA1)
+ggplot(diamonds, aes(x=carat, y=price, color=clarity))+ geom_point(alpha=.8) 
 ```
+Hier kann man erkennen, dass bei höheren Karatwerten (und damit auch höheren Preisen) es auch vermehrt die Klarheitsgrade I1, SI2 und SI1 gibt.
+
+# lineare Regression
+für den Einfluss von Karat auf Preis:
+```{r}
+summary(lm(price~carat,data=diamonds))
+```
+Karat scheint viel Varianz vom Preis zu erklären. R^2 ist .85.
+
+Damit eine lineare Regression mit der Variable Klarheit gemacht werden kann, muss sie transformiert werden, da es eine kategoriale Variable ist. Das geschieht durch den Befehl as.numeric
+```{r}
+diamonds$clarity.numeric <- as.numeric(diamonds$clarity)
+summary(lm(price~clarity.numeric,data=diamonds))
+```
+R^2 ist hier sehr gering. Also scheint die Klarheit keinen großen Einfluss auf den Preis des Diamonaten zu haben. 
+
+gibt es eine Interaktion zwischen Klarheit und Karat?
+
+```{r}
+summary(lm(price~carat*clarity.numeric,data=diamonds))
+```
+R^2 liegt nun bei .9, also ist noch mehr Varianz erklärt worden. Der T-wert für Klarheit ist nun bei 0.38 und nicht signifikant (p>.5), aber die Interaktion ist signifikant.
 
 ANOVA mit den Einflüssen von Carat und Clarity auf Preis mit Blick auf Interaktion
 
 ```{r}
-ANOVA2<- aov(price~carat*clarity, data = diamonds)
-summary(ANOVA2)
+summary(aov(price~carat*clarity, data = diamonds))
 ```
-Carat hat den höchsten F-Wert. Clarity und die Interaktion sind aber auch hochsignifikant
+Karat hat den höchsten F-Wert. Klarheit und die Interaktion sind aber auch hochsignifikant.
+Ob Klarheit jetzt einen Einfluss auf den Preis hat, kann ich nicht genau interpretieren, da bei der linearen Regression ein nichtsignifikanter Wert herauskam, bei der ANOVA aber ein signifikanter. Eine Interaktion ist in beiden Fällen zu sehen.
 
 # Noch eine Überlegung
 Haben Sie dabei explorativ oder konfirmativ gearbeitet? Was hat das für eine Auswirkung auf die Interpretation der Ergebnisse?
