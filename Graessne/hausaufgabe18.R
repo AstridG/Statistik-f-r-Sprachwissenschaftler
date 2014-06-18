@@ -134,7 +134,8 @@ summary(lm_pyreg)
 # F-Werte an sowie auch die t-Werte für die einzelnen Prediktoren. Glauben Sie, 
 # dass y im linearen Verhältnis zu x1 und x2 steht? Machen Sie eine Grafik wie
 # oben für y ~ x1 + x2, **nachdem Sie sich eine Antwort überlegt haben**.
-# R^2 ist mit .96 sehr hoch. auch ist F sehr hoch und der T-Wert für x2.
+# R^2 ist mit .96 sehr hoch. auch ist F sehr hoch und der T-Wert für x2. Man könnte annehmen, dass
+# y im linearen Verhältnis zu x1 und x2 steht.
 
 ggplot(pyreg,aes(x=x1,y=x2))+geom_point(aes(size= y)) + geom_smooth(method="lm")
 
@@ -144,16 +145,28 @@ ggplot(pyreg,aes(x=x1,y=x2))+geom_point(aes(size= y)) + geom_smooth(method="lm")
 # Wie sieht mit Korrelationen aus? Berechnen Sie die Korrelation (sowohl Pearson
 # als auch Spearman) zwischen (y und x1) sowie auch zwischen (y und x2). 
 
-# CODE_HIER
+cor.test(pyreg$y,pyreg$x1, method = "pearson")
+cor.test(pyreg$y,pyreg$x1, method = "spearman")
 
-# CODE_HIER 
+cor.test(pyreg$y,pyreg$x2, method = "pearson")
+cor.test(pyreg$y,pyreg$x2, method = "spearman")
+
 
 # Welche Art von Korrelation macht am meisten Sinn bei diesen Daten?
+# da die Daten intervallskaliert sind würde ich sagen, dass Pearson mehr Sinn macht.
 
 # Korreliert y mit x1? y mit x2? x1 mit x2? Welche Schlussfolgerung über solche
 # Dreiecke von Variablen und ihren Korrelationen können Sie daraus ziehen?
+# Y korreliert nur mit X2, wie es in der Grafik zu erkennen war. X1 und X2 korrelieren 
+# schwach miteinander.
 
 # Welche Methode macht hier am meisten Sinn? Korrelationen oder Regression?
+# Durch die Korrelation drückt man nur den Zusammenhang zwischen zwei Variablen aus.
+# DUrch Regression kann man sehen, wie schnell die DV mit dem Wachstum der UV wächst 
+# und kann dadurch Annahmen über die DV machen.
+# Ich würde sagen es kommt auf die Fragestellung an, welche Methode mehr Sinn macht. Wenn ich den
+# bloßen Zusammenhang zwischen 2 Variablen sehen will, berechne ich die Korrelation, wenn ich 
+# Vorhersagen über eine Variable machen will, berechne ich die Regression.
 
 # Die Daten sind übrigens *nicht* linear. x1 besteht aus 10 zufälligen Zahlen
 # zwischen [1,10] und x2 besteht aus 10 zufälligen Zahlen zwischen [1,20]. 
