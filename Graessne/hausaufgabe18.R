@@ -90,7 +90,7 @@ model2 <- lm(y ~ x2 + x1, data=linreg)
 model2.summary <- summary(model2)
 print(model2.summary)
 
-# nun ist es das umgekehrte Bild und für x2 steht NA.
+# nun ist es das umgekehrte Bild und für x1 steht NA, da x2 die gesamte Varianz erklären kann.
 
 # Bei linearen Regression müssen wir immer aufpassen, dass unsere Prediktoren
 # nicht zu stark miteinander korrelieren. Das könnten wir auch mit cor()
@@ -123,6 +123,7 @@ summary(lm_pyreg_x2)
 # Korrelation (mit Konfidenzintervall!) zwischen x1 und x2 an:
 
 cor.test(pyreg$x1,pyreg$x2, method = "pearson")
+
 
 # Wenn Sie nicht miteinander signifikant korreliert sind, sollten Sie auch die
 # Regression y ~ x1 + x2 berechnen:
