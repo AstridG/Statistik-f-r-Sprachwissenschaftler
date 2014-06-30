@@ -1,6 +1,6 @@
 % Hausaufgabe 20
 % Astrid Graessner <Graessne@students.uni-marburg.de>
-% 2014-06-25
+% 2014-06-30
 
 Falls die Umlaute in dieser und anderen Dateien nicht korrekt dargestellt werden, sollten Sie File > Reopen with Encoding > UTF-8 sofort machen (und auf jeden Fall ohne davor zu speichern), damit die Enkodierung korrekt erkannt wird! 
 
@@ -198,5 +198,5 @@ bibliography()
 ```
 
 # Lizenz
-Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+Diese Datei dient nur zu Prüfungszwecken.
 
